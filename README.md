@@ -5,15 +5,15 @@
 #### 2. Conform your UIView to AdHashView
 #### 3. Configure AdHashManager in AppDelegate file:
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    		let config = AdHashConfig(publisherID: "0x89c430444df3dc8329aba2c409770fa196b65d3c",
-    		  analyticsURL: "https://bidder.adhash.org/protocol.php?action=rtb_sdk",
-    		  bidderURL: "https://bidder.adhash.org/protocol.php?action=click",
-    		  publisherURL: "https://publisher.com/protocol.php?action=click",
-    		  reportURL: "https://google.com.ua",
-    		  apiVersion: 1.0)
-    		AdHashManager.setConfig(config)
-    		return true
-    	}
+    	let config = AdHashConfig(publisherID: "0x9e0fa4b9a910d25d3a92102dfe4ca0079031a6d4",
+    	  analyticsURL: "https://adhash.org/p/sdk/data.php",
+    	  bidderURL: "https://bidder.adhash.org/protocol.php?action=click",
+    	  publisherURL: "https://publisher.com/protocol.php?action=click",
+    	  reportURL: "https://adhash.org/p/sdk/protocol.php?action=report_sdk",
+    	  apiVersion: 1.0)
+    	AdHashManager.setConfig(config)
+    	return true
+    }
 #### 4. Setup your ViewController:
     import UIKit
     import AdHash_iOS
@@ -25,7 +25,7 @@
     	override func viewDidLoad() {
     		super.viewDidLoad()
     		AdHashManager.bannerWidth = 300
-            AdHashManager.bannerHeight = 250
+    		AdHashManager.bannerHeight = 250
     		banner.adTagId = "AdID"
     		banner.delegate = self
     	}
@@ -39,7 +39,6 @@
     	}
 
     }
-#### 5. Enjoy ;)
 
  ___
 
