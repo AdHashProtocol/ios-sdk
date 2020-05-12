@@ -14,7 +14,7 @@ public class AdHashView: UIView {
     //MARK: - Properties
     public var adTagId: String = ""
 	private var adInfo = AdRequestModel()
-	
+
     weak public var delegate: AdHashViewDelegate? {
         didSet {
 			configureAdManger()
@@ -27,10 +27,10 @@ public class AdHashView: UIView {
 			})
         }
     }
-	
+
 	private var logoImage = UIImageView()
 	private var bannerImage = UIImageView()
-    
+
     //MARK: - Life cycle
 	override open func awakeFromNib() {
 		bannerImage.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height)
@@ -47,17 +47,17 @@ public class AdHashView: UIView {
 		setLogo()
 		configureGestures()
 	}
-    
+
     //MARK: - Private methods
     private func configureAdManger() {
 		adInfo.adTagId = adTagId
 		AdHashManager.shared.adInfoModel = adInfo
     }
-	
+
 	private func setBannerImage() {
 		bannerImage.image = adInfo.bannerImage
 	}
-    
+
     private func configureGestures() {
 		let swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(tapOnBanner))
 		swipeRightGesture.direction = .right
@@ -76,12 +76,12 @@ public class AdHashView: UIView {
 		bannerImage.addGestureRecognizer(swipeDownGesture)
         bannerImage.addGestureRecognizer(tapGesture)
     }
-	
+
 	private func setLogo() {
 		self.addSubview(logoImage)
 		logoImage.translatesAutoresizingMaskIntoConstraints = false
-		logoImage.heightAnchor.constraint(equalToConstant: 20).isActive = true
-		logoImage.widthAnchor.constraint(equalToConstant: 20).isActive = true
+		logoImage.heightAnchor.constraint(equalToConstant: 18).isActive = true
+		logoImage.widthAnchor.constraint(equalToConstant: 18).isActive = true
 		logoImage.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
 		logoImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
 		logoImage.isUserInteractionEnabled = true
@@ -90,7 +90,7 @@ public class AdHashView: UIView {
 			logoImage.image = image
 		}
 	}
-	
+
 	@objc private func tapOnBanner(touch: UITapGestureRecognizer) {
 		if adInfo.bannerURL != "" {
 			EventManager.getClickableURL(adInfo: adInfo, tapCoordinates: touch.location(in: self)) { [weak self] (clickableURL) in
@@ -100,7 +100,7 @@ public class AdHashView: UIView {
 			}
 		}
 	}
-	
+
 	@objc private func tapOnReport() {
 		if AdHashManager.reportURL != "", let url = URL(string: AdHashManager.reportURL) {
 			delegate?.didClickOnReport(adId: adInfo.adTagId)
@@ -108,9 +108,9 @@ public class AdHashView: UIView {
 			delegate?.present(safariController, animated: true, completion: nil)
 		}
 	}
-	
+
 	@objc private func screenshotTaken() {
 		EventManager.sendAnalyticsRequest(type: .screenShot, adInfo: adInfo) {}
 	}
-    
+
 }
